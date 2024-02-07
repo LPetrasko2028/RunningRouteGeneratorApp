@@ -1,3 +1,6 @@
+# public directory functioning as the dist folder
+public/
+
 # Logs
 logs
 *.log
