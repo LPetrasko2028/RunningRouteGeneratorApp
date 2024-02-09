@@ -1,8 +1,12 @@
 import React from 'react'
+import Banner from './Banner.jsx'
 
 const App = () => {
   return (
-    <div>app</div>
+    <>
+    <Banner />
+    </>
+    
   )
 }
 

@@ -1,5 +1,10 @@
 import Express from 'express'
 import dataRouter from './routes/routes.js'
+import path from 'path'
+import session from 'express-session'
+
+const store = new session.MemoryStore()
+path.__dirname = path.resolve(path.dirname('./client/public/index.html'))
 
 const PORT = 3000;
 const app = new Express();
@@ -13,12 +18,25 @@ app.use((req, res, next) => {
 })
 // -------------------------------------------
 
-app.use(Express.static(path.join('./public')));
+const sessionOptions = {
+    name: 'example.sid', // default name is 'connect.sid
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    store, // : MongoStore.create({ client: Mongo, dbName: 'MonkeyBusinessWebApp' }), // store: new MongoStore.Session({ mongooseConnection: mongoose.connection }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 // 1 day
+    }
+  }
+  
+app.use(session(sessionOptions))
+
+app.use(Express.static(path.join('./client/public')));
 
 app.use('/api', dataRouter);
 
 app.get('*', (req, res) => {
-    res.sendFile('index.html', { root: './public' })
+    res.sendFile('index.html', { root: './client/public' })
 });
 
 app.listen(PORT, () => {
