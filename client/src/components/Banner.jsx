@@ -1,10 +1,13 @@
 import React from 'react';
+import logo from '../assets/logo.svg';
+import BannerMenu from './BannerMenu.jsx';
 
 const Banner = () => {
     return (
         <div className="banner">
-            <h1>Welcome to the Banner component!</h1>
-            <p>This is a simple banner component created using React.</p>
+            <img src={logo} alt="Website Icon"/>
+            <h1>Running Route App</h1>
+            <BannerMenu />
         </div>
     );
 };
